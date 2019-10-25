@@ -2,40 +2,45 @@
   <div class="container">
     <!-- 关闭按钮 -->
     <div class="closeBtn">
-      <span class="iconfont iconicon-test"></span>
+      <span @click="$router.back()" class="iconfont iconjiantou"></span>
     </div>
     <!-- logo -->
     <div class="logo">
       <span class="iconfont iconnew"></span>
     </div>
     <!-- 用户名输入框 -->
-    <div class="inputName">
+    <div class="userName">
       <authInput
         type="text"
-        placeholder="请输入手机号"
+        placeholder="手机号"
         rule="^\d{4,16}$"
         err_message="请输入正确手机号"
         @input="setUserName"
       ></authInput>
     </div>
+    <!-- 昵称输入框 -->
+    <div class="nickName">
+      <authInput
+        type="text"
+        placeholder="昵称"
+        rule="^\d{4,16}$"
+        err_message="请输入正确昵称"
+        @input="setNickName"
+      ></authInput>
+    </div>
     <!-- 密码输入框 -->
-    <div class="inputPwd">
+    <div class="userPwd">
       <authInput
         type="password"
-        placeholder="请输入密码"
+        placeholder="密码"
         rule="^\d{3,16}$"
         err_message="请输入正确密码"
         @input="setPassword"
       ></authInput>
     </div>
-    <!-- 登陆按钮 -->
+    <!-- 注册按钮 -->
     <div class="btn">
-      <authBtn text="登陆" @send="sendLogin" />
-    </div>
-    <!-- 跳转注册 -->
-    <div class="register">
-      还没有账号？
-      <router-link to="/register">立即注册</router-link>
+      <authBtn text="注册" @send="sendRegister" />
     </div>
   </div>
 </template>
@@ -51,6 +56,7 @@ export default {
   data() {
     return {
       username: "",
+      nickname: "",
       password: ""
     };
   },
@@ -58,23 +64,25 @@ export default {
     setUserName(name) {
       this.username = name;
     },
+    setNickName(nickname) {
+      this.nickname = nickname;
+    },
     setPassword(password) {
       this.password = password;
     },
-    sendLogin() {
-      console.log("登陆按钮被点击");
-      console.log(`应该发送用户名${this.username}和密码${this.password}`);
+    sendRegister() {
       // 发送ajax请求
       this.$axios({
-        url: "http://127.0.0.1:3000/login",
+        url: "http://127.0.0.1:3000/register",
         method: "post",
         data: {
           username: this.username,
+          nickname: this.nickname,
           password: this.password
         }
       }).then(res => {
         console.log(res);
-        if (res.data.statusCode && res.data.statusCode == 401) {
+        if (res.data.statusCode && res.data.statusCode == 400) {
           this.$toast.fail(res.data.message);
         } else {
           this.$toast.success(res.data.message);
@@ -86,29 +94,22 @@ export default {
 </script>
 
 <style lang='less' scoped>
-// scoped是局部css声明
 .container {
   padding: 0 5.556vw;
-  .closeBtn {
-    padding-top: 20px;
-    .iconfont {
-      font-size: 7.5vw;
-    }
+}
+.closeBtn {
+  padding-top: 20px;
+  .iconfont {
+    font-size: 7.5vw;
   }
-  .logo {
-    display: flex;
-    justify-content: center;
-    .iconfont {
-      font-size: 35vw;
-      color: #d81e06;
-    }
-  }
-  .btn {
-    margin-top: 10.556vw;
-  }
-  .register {
-    text-align: center;
-    margin-top: 6.667vw;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  .iconfont {
+    font-size: 35vw;
+    color: #d81e06;
   }
 }
 </style>
