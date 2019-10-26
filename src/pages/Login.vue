@@ -66,7 +66,7 @@ export default {
       console.log(`应该发送用户名${this.username}和密码${this.password}`);
       // 发送ajax请求
       this.$axios({
-        url: "http://127.0.0.1:3000/login",
+        url: "/login",
         method: "post",
         data: {
           username: this.username,
