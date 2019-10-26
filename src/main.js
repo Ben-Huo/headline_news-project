@@ -13,9 +13,10 @@ axios.defaults.baseURL ="http://127.0.0.1:3000"
 
 //axios 拦截器 响应拦截器
 axios.interceptors.response.use((res)=>{
-  console.log('数据被拦截了');
-  const {message,statusCode} =res.data;
-  if(message && statusCode == 401){
+  const {data,status} =res;
+  const {message} = data;
+  console.log('数据被拦截了',status,message);
+  if(message && status == 401){
     Toast.fail(message)
   }
   return (res)
