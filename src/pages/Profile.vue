@@ -17,6 +17,7 @@
       <cellBar label="我的跟帖" desc="跟帖/回复" @jump="jumpToPage"/>
       <cellBar label="我的收藏" desc="文章/视频" @jump="jumpToPage"/>
       <cellBar label="设置"  @jump="jumpToPage"/>
+      <cellBar label="退出登陆"  @jump="logOut"/>
   </div>
 </template>
 
@@ -34,7 +35,14 @@ export default {
     methods:{ 
         jumpToPage(label){
             console.log(`跳转到${label}页面`);
-            
+        },
+        logOut(){
+            // 清除token和user_id
+            localStorage.removeItem('token');
+            localStorage.removeItem('user_id');
+            // push 方法是跳转页面，会在浏览器留下历史纪录，返回时是逐页返回
+            // replace 方法是替换当前页面的记录
+            this.$router.replace('/login')
         }
     },
     mounted(){
