@@ -78,6 +78,15 @@ export default {
           this.$toast.fail(res.data.message);
         } else {
           this.$toast.success(res.data.message);
+          const { message, data } = res.data;
+          // 把data中的token和用户id保存到本地
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user_id", data.user.id);
+          setTimeout(() => {
+            this.$router.push({
+              path: "/profile"
+            });
+          }, 1000);
         }
       });
     }
