@@ -1,7 +1,7 @@
 <template>
   <div>
       <div class="profile">
-          <img :src="'http://127.0.0.1:3000'+user_info.head_img" alt="">
+          <img :src="user_info.head_img?'http://127.0.0.1:3000'+user_info.head_img : '../../static/images/pic.jpg'" alt="">
           <div class="profile_middle">
               <div class="name">
                   <span v-if="user_info.gender==1" class="iconfont iconxingbienv"></span>
