@@ -4,6 +4,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Profile from "../pages/Profile";
 import Home from "../pages/Home";
+import EditProfile from "../pages/EditProfile";
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ export default new Router({
       path: "/profile",
       name: "Profile",
       component: Profile
+    },
+    {
+      path: "/editprofile",
+      name: "EditProfile",
+      component: EditProfile
     }
   ]
 });

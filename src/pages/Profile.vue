@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div class="profile">
+      <div class="profile" @click="$router.push('/editprofile')">
           <img :src="user_info.head_img?'http://127.0.0.1:3000'+user_info.head_img : '../../static/images/pic.jpg'" alt="">
           <div class="profile_middle">
               <div class="name">
@@ -16,7 +16,7 @@
       <cellBar label="我的关注" desc="关注的用户" @jump="jumpToPage"/>
       <cellBar label="我的跟帖" desc="跟帖/回复" @jump="jumpToPage"/>
       <cellBar label="我的收藏" desc="文章/视频" @jump="jumpToPage"/>
-      <cellBar label="设置"  @jump="jumpToPage"/>
+      <cellBar label="设置"  @jump="$router.push('/editprofile')"/>
       <cellBar label="退出登陆"  @jump="logOut"/>
   </div>
 </template>

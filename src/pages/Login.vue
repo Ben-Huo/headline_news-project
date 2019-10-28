@@ -84,7 +84,7 @@ export default {
           localStorage.setItem("user_id", data.user.id);
           setTimeout(() => {
             this.$router.push({
-              path: "/profile"
+              name: "Home"
             });
           }, 1000);
         }
