@@ -31,6 +31,21 @@ Vue.use(Vant);
 import "vant/lib/index.css";
 
 Vue.config.productionTip = false;
+// 添加路由守卫
+router.beforeEach((to,from,next)=>{
+  let token = localStorage.getItem('token');
+  // 去个人中心的逻辑
+  if(to.path == '/profile'){
+    if(token){
+      next();
+    }else{
+      next('/login');
+    }
+  }else{
+    // 去其他页面的逻辑
+    next();
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({
