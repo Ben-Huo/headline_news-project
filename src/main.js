@@ -18,6 +18,10 @@ axios.interceptors.response.use((res)=>{
   if(message && statusCode == 401){
     Toast.fail(message)
   }
+  // token错误或过期时跳转回登陆页面
+  if(message == '用户信息验证失败'){
+    router.push('./login');
+  }
   return (res)
 })
 // 绑定到原型
