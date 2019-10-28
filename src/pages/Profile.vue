@@ -30,6 +30,21 @@ export default {
             console.log(`跳转到${label}页面`);
             
         }
+    },
+    mounted(){
+        // 在这里应该发送请求，获取用户数据
+        // user_id已经存储在 localStorage里面
+
+        this.$axios({
+            url: '/user/' + localStorage.getItem('user_id'),
+            method:'get',
+            headers:{
+                Authorization : localStorage.getItem('token')
+            }
+        }).then(res=>{
+            console.log(res);
+            
+        })
     }
 }
 </script>
