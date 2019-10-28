@@ -1,11 +1,12 @@
 <template>
   <div>
       <div class="profile">
-          <img src="../images/pic.jpg" alt="">
+          <img :src="'http://127.0.0.1:3000'+user_info.head_img" alt="">
           <div class="profile_middle">
               <div class="name">
-                  <span class="iconfont iconxingbienan"></span>
-                  火星网友
+                  <span v-if="user_info.gender==1" class="iconfont iconxingbienv"></span>
+                  <span v-else class="iconfont iconxingbienan"></span>
+                  {{user_info.nickname}}
               </div>
               <div class="time">2019-10-1</div>
           </div>
@@ -25,7 +26,12 @@ export default {
     components:{
         cellBar:cellBar
     },
-    methods:{
+    data(){
+        return{
+            user_info:{}
+        }
+    },
+    methods:{ 
         jumpToPage(label){
             console.log(`跳转到${label}页面`);
             
@@ -42,8 +48,10 @@ export default {
                 Authorization : localStorage.getItem('token')
             }
         }).then(res=>{
-            console.log(res);
-            
+            // console.log(res);
+            // 数据获取完毕，用户数据在res.data.data里面
+            this.user_info = res.data.data;
+            console.log(this.user_info);
         })
     }
 }
