@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-      <span class="iconfont iconjiantou2"></span>
+      <span class="iconfont iconjiantou2" @click="$router.back()"></span>
       <div class="title">{{title}}</div>
   </div>
 </template>
