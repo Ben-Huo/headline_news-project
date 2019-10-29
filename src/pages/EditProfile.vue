@@ -88,7 +88,28 @@ export default {
       console.log(fileItem);
       // 这里是选择完图片后的回调方法，我们想要的图片就在 fileItem.file 里面
       // 只需要将这个文件转换成  api  要求的二进制形式，发送ajax 请求即可
-      
+      // 使用对象 FormDate  将数据转换成二进制形式
+      const data = new FormData();
+      // 我们要将刚刚拿到的图片放入这个二进制对象的 file 字段里
+      data.append('file',fileItem.file);
+      // 这个 data 对象就是一个可以直接上传的数据
+      this.$axios({
+        url : '/upload',
+        method: 'post',
+        headers: {
+          Authorization: localStorage.getItem("token")
+        },
+        data,
+
+      }).then(res=>{
+        console.log(res.data);
+        // 这里文件上传完毕
+        // 文件上传仅仅是上传了文件并且返回了 url
+        // 但是没有修改用户信息
+        // 所以我们要调用 editProfile() 方法 修改 head_img
+        this.editProfile({head_img:res.data.data.url})
+      })
+
     },
     editProfile(newData) {
       // 获取到了新昵称  this.newNickname
