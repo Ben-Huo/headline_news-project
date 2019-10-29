@@ -18,6 +18,12 @@ export default {
   components:{
     headerMiddle,
     cellBar
+  },
+  // 新的生命周期钩子函数 created() 
+  // 跟 mounted()  的区别在于他是这个组件实例创建完毕之后马上执行，这时候还未挂载，模板当中的那些dom都还不能使用
+  // 可以用来获取数据
+  mounted(){
+    
   }
 }
 </script>
