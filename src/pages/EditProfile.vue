@@ -96,9 +96,6 @@ export default {
       this.$axios({
         url : '/upload',
         method: 'post',
-        headers: {
-          Authorization: localStorage.getItem("token")
-        },
         data,
 
       }).then(res=>{
@@ -117,9 +114,6 @@ export default {
       this.$axios({
         url: "/user_update/" + localStorage.getItem("user_id"),
         method: "post",
-        headers: {
-          Authorization: localStorage.getItem("token")
-        },
         data: newData
       }).then(res => {
         console.log(res.data);
