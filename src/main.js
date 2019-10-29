@@ -11,10 +11,25 @@ import axios from "axios";
 // axios 设定基准路径
 axios.defaults.baseURL ="http://127.0.0.1:3000"
 
+// axios 请求拦截器
+// 在响应拦截器，拦截的是响应结果，res
+// 在请求拦截器，拦截的是我们的请求属性配置
+// 想知道有没有带headers
+axios.interceptors.request.use((config)=>{
+  // 这里我要判断你有没有带token
+  // 如果你没有带，而且我在 localStorage 里面找到，我就同意给你带上去
+  if(!config.headers.Authorization && localStorage.getItem('token')){
+    config.headers.Authorization = localStorage.getItem('token');
+  }
+  
+  // 有拦截就要有返回
+  return config
+
+})
 //axios 拦截器 响应拦截器
 axios.interceptors.response.use((res)=>{
   const {message,statusCode} =res.data;
-  console.log('数据被拦截了',statusCode,message);
+  console.log('响应数据被拦截了',message);
   if(message && statusCode == 401){
     Toast.fail(message)
   }
