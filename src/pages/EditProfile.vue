@@ -12,7 +12,8 @@
     <cellBar label="性别" :desc="profile.gender" />
 
     <van-dialog v-model="isShowNickname" title="编辑昵称" show-cancel-button>
-      123
+      <!-- 这里要嵌入一个输入框 -->
+      <van-field v-model="newNickname" placeholder="请输入昵称" />
     </van-dialog>
     
   </div>
@@ -30,6 +31,7 @@ export default {
   data() {
     return {
       isShowNickname: false,
+      newNickname: "",
       profile: {}
     };
   },
