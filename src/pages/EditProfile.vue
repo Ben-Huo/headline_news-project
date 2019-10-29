@@ -6,11 +6,13 @@
         :src="profile.head_img?this.$axios.defaults.baseURL+profile.head_img : '../../static/images/pic.jpg'"
         class="avatar-img"
       />
+      <van-uploader :after-read="afterRead" class="fileUpLoader" />
     </div>
     <cellBar label="昵称" :desc="profile.nickname" @jump="isShowNickname = true" />
     <cellBar label="密码" desc="*****" @jump="isShowPwd = true" />
     <cellBar label="性别" :desc="profile.gender" @jump="isShowGender = true" />
 
+    <!-- 下面存放组件  上面放内容 -->
     <!-- v-model 控制是否显示  title  控制标题   show-cancel-button  控制是否显示取消确认按钮   confirm  是点击确认按钮事件 -->
     <van-dialog
       v-model="isShowNickname"
@@ -82,6 +84,12 @@ export default {
         this.profile.gender = this.profile.gender == 1 ? "男" : "女";
       });
     },
+    afterRead(fileItem){
+      console.log(fileItem);
+      // 这里是选择完图片后的回调方法，我们想要的图片就在 fileItem.file 里面
+      // 只需要将这个文件转换成  api  要求的二进制形式，发送ajax 请求即可
+      
+    },
     editProfile(newData) {
       // 获取到了新昵称  this.newNickname
       console.log("点击了确认按钮", this.newNickname);
@@ -122,6 +130,18 @@ export default {
 .avatar {
   padding: 8.333vw;
   text-align: center;
+  position: relative;
+}
+.fileUpLoader{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
 }
 .avatar-img {
   width: 19.444vw;
