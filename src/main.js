@@ -35,21 +35,34 @@ Vue.use(Vant);
 import "vant/lib/index.css";
 
 Vue.config.productionTip = false;
-// 添加路由守卫
+
+
+// 添加路由导航守卫
 router.beforeEach((to,from,next)=>{
   let token = localStorage.getItem('token');
+  // pagesNeedAuth.indexOf(srt) 这个方法可以在数组中搜索一个字符串然后返回索引值
+  // 如果字符串在数组中不存在，返回-1
+  // 所以如果返回值大于等于0 证明存在于数组中，则进行权限验证
+  const pagesNeedAuth = [
+    '/editprofile',
+    '/profile',
+  ]
   // 去个人中心的逻辑
-  if(to.path == '/profile'){
+  if(pagesNeedAuth.indexOf(to.path) >= 0){
     if(token){
       next();
     }else{
-      next('/login');
+      // next('/login');
+      router.push({
+        path:'/login'
+      })
     }
   }else{
     // 去其他页面的逻辑
     next();
   }
 })
+
 
 /* eslint-disable no-new */
 new Vue({
