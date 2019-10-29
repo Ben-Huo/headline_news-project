@@ -1,7 +1,7 @@
 <template>
   <div>
       <div class="profile" @click="$router.push('/editprofile')">
-          <img :src="user_info.head_img?'http://127.0.0.1:3000'+user_info.head_img : '../../static/images/pic.jpg'" alt="">
+          <img :src="user_info.head_img?this.$axios.defaults.baseURL+user_info.head_img : '../../static/images/pic.jpg'" alt="">
           <div class="profile_middle">
               <div class="name">
                   <span v-if="user_info.gender==1" class="iconfont iconxingbienv"></span>
@@ -56,7 +56,7 @@ export default {
                 Authorization : localStorage.getItem('token')
             }
         }).then(res=>{
-            // console.log(res);
+            console.log(res);
             // 数据获取完毕，用户数据在res.data.data里面
             this.user_info = res.data.data;
             console.log(this.user_info);
