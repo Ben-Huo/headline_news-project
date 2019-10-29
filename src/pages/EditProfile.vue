@@ -8,23 +8,40 @@
       />
     </div>
     <cellBar label="昵称" :desc="profile.nickname" @jump="isShowNickname = true" />
-    <cellBar label="密码" desc="*****" @jump="isShowPwd = true"/>
-    <cellBar label="性别" :desc="profile.gender" />
+    <cellBar label="密码" desc="*****" @jump="isShowPwd = true" />
+    <cellBar label="性别" :desc="profile.gender" @jump="isShowGender = true" />
 
     <!-- v-model 控制是否显示  title  控制标题   show-cancel-button  控制是否显示取消确认按钮   confirm  是点击确认按钮事件 -->
-    <van-dialog v-model="isShowNickname" title="编辑昵称" show-cancel-button @confirm="editProfile({nickname:newNickname})">
+    <van-dialog
+      v-model="isShowNickname"
+      title="编辑昵称"
+      show-cancel-button
+      @confirm="editProfile({nickname:newNickname})"
+    >
       <!-- 这里要嵌入一个输入框 -->
       <van-field v-model="newNickname" placeholder="请输入昵称" />
     </van-dialog>
 
-
     <!-- 修改密码 -->
-    <van-dialog v-model="isShowPwd" title="编辑密码" show-cancel-button @confirm="editProfile({password:newPwd})">
+    <van-dialog
+      v-model="isShowPwd"
+      title="编辑密码"
+      show-cancel-button
+      @confirm="editProfile({password:newPwd})"
+    >
       <!-- 这里要嵌入一个输入框 -->
       <van-field v-model="newPwd" placeholder="请输入密码" />
     </van-dialog>
 
-
+    <!-- 上拉菜单组件 -->
+    <!-- actions 是一个数组，存放所有选项 -->
+    <!-- select 是选择后的回调函数 -->
+    <van-action-sheet
+      v-model="isShowGender"
+      :actions="actions"
+      @select="selectGender"
+      cancel-text="取消"
+    />
   </div>
 </template>
 
@@ -41,8 +58,10 @@ export default {
     return {
       isShowNickname: false,
       isShowPwd: false,
+      isShowGender: false,
       newNickname: "",
       newPwd: "",
+      actions: [{ name: "男" }, { name: "女" }],
       profile: {}
     };
   },
@@ -75,17 +94,26 @@ export default {
         data: newData
       }).then(res => {
         console.log(res.data);
-        this.loadPage()
+        this.loadPage();
       });
     },
-    
+    selectGender(item) {
+      // 这个点击之后的回调，可以接收一个参数
+      // 是选择了的那个对象
+      // 这个时候我们只需要使用 item.name 就可以获取用户选择的那个选项
+      console.log("你选择了" + item.name);
+      this.editProfile({
+        gender: item.name == "男" ? 1 : 0
+      });
+      this.isShowGender = false;
+    }
   },
   // 新的生命周期钩子函数 created()
   // 跟 mounted()  的区别在于他是这个组件实例创建完毕之后马上执行，这时候还未挂载，模板当中的那些dom都还不能使用
   // 可以用来获取数据
   mounted() {
     // 将读取数据的方法封装起来，每一次修改都重新读取一遍数据
-    this.loadPage()
+    this.loadPage();
   }
 };
 </script>
