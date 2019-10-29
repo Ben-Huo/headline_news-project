@@ -8,14 +8,23 @@
       />
     </div>
     <cellBar label="昵称" :desc="profile.nickname" @jump="isShowNickname = true" />
-    <cellBar label="密码" desc="*****" />
+    <cellBar label="密码" desc="*****" @jump="isShowPwd = true"/>
     <cellBar label="性别" :desc="profile.gender" />
 
     <!-- v-model 控制是否显示  title  控制标题   show-cancel-button  控制是否显示取消确认按钮   confirm  是点击确认按钮事件 -->
-    <van-dialog v-model="isShowNickname" title="编辑昵称" show-cancel-button @confirm="editNickname">
+    <van-dialog v-model="isShowNickname" title="编辑昵称" show-cancel-button @confirm="editProfile({nickname:newNickname})">
       <!-- 这里要嵌入一个输入框 -->
       <van-field v-model="newNickname" placeholder="请输入昵称" />
     </van-dialog>
+
+
+    <!-- 修改密码 -->
+    <van-dialog v-model="isShowPwd" title="编辑密码" show-cancel-button @confirm="editProfile({password:newPwd})">
+      <!-- 这里要嵌入一个输入框 -->
+      <van-field v-model="newPwd" placeholder="请输入密码" />
+    </van-dialog>
+
+
   </div>
 </template>
 
@@ -31,7 +40,9 @@ export default {
   data() {
     return {
       isShowNickname: false,
+      isShowPwd: false,
       newNickname: "",
+      newPwd: "",
       profile: {}
     };
   },
@@ -52,7 +63,7 @@ export default {
         this.profile.gender = this.profile.gender == 1 ? "男" : "女";
       });
     },
-    editNickname() {
+    editProfile(newData) {
       // 获取到了新昵称  this.newNickname
       console.log("点击了确认按钮", this.newNickname);
       this.$axios({
@@ -61,14 +72,13 @@ export default {
         headers: {
           Authorization: localStorage.getItem("token")
         },
-        data: {
-          nickname: this.newNickname
-        }
+        data: newData
       }).then(res => {
         console.log(res.data);
         this.loadPage()
       });
-    }
+    },
+    
   },
   // 新的生命周期钩子函数 created()
   // 跟 mounted()  的区别在于他是这个组件实例创建完毕之后马上执行，这时候还未挂载，模板当中的那些dom都还不能使用
