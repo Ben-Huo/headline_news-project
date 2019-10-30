@@ -1,12 +1,15 @@
 <template>
   <div>
-      <router-link to="/profile">个人中心</router-link>
+    <homeHeader />
   </div>
 </template>
 
 <script>
+import homeHeader from '../components/homeHeader'
 export default {
-
+  components:{
+    homeHeader
+  }
 }
 </script>
 
