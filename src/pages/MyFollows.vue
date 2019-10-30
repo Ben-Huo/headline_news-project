@@ -1,11 +1,11 @@
 <template>
   <div>
       <headerMiddle title="我的关注"/>
-      <div class="item">
+      <div class="item" v-for="(item,index) in myFollows" :key="index">
           <!-- 这里是关注的框  用 v-for 遍历数据 -->
-          <img src="/static/images/pic.jpg" class="avatar">
+          <img :src="item.head_img?$axios.defaults.baseURL+item.head_img : '../../static/images/pic.jpg'" class="avatar">
           <div class="itemMiddle">
-              <div class="name">火星新闻晚班</div>
+              <div class="name">{{item.nickname}}</div>
               <div class="data">2019-10-4</div>
           </div>
           <div class="btnCancel">取消关注</div>
@@ -18,6 +18,21 @@ import headerMiddle from '../components/headerMiddle'
 export default {
     components:{
         headerMiddle
+    },
+    data(){
+        return{
+            myFollows : []
+        }
+    },
+    mounted(){
+        // 1.获取数据
+        this.$axios({
+            url:'user_follows',
+            method:'get',
+        }).then(res=>{
+            console.log(res.data);
+            this.myFollows = res.data.data;
+        })
     }
 }
 </script>
