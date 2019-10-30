@@ -6,6 +6,7 @@ import Profile from "../pages/Profile";
 import Home from "../pages/Home";
 import EditProfile from "../pages/EditProfile";
 import MyFollows from "../pages/MyFollows";
+import MyComments from "../pages/MyComments";
 
 Vue.use(Router);
 
@@ -40,6 +41,11 @@ export default new Router({
       path: "/myfollows",
       name: "MyFollows",
       component: MyFollows
-    }
+    },
+    {
+      path: "/mycomments",
+      name: "MyComments",
+      component: MyComments
+    },
   ]
 });
