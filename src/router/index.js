@@ -5,6 +5,7 @@ import Register from "../pages/Register";
 import Profile from "../pages/Profile";
 import Home from "../pages/Home";
 import EditProfile from "../pages/EditProfile";
+import MyFollows from "../pages/MyFollows";
 
 Vue.use(Router);
 
@@ -34,6 +35,11 @@ export default new Router({
       path: "/editprofile",
       name: "EditProfile",
       component: EditProfile
+    },
+    {
+      path: "/myfollows",
+      name: "MyFollows",
+      component: MyFollows
     }
   ]
 });
