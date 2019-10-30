@@ -61,7 +61,8 @@ router.beforeEach((to,from,next)=>{
   const pagesNeedAuth = [
     '/editprofile',
     '/profile',
-    '/myfollows'
+    '/myfollows',
+    '/mycomments'
   ]
   // 去个人中心的逻辑
   if(pagesNeedAuth.indexOf(to.path) >= 0){
