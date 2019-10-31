@@ -29,6 +29,18 @@ export default {
   mounted() {
     this.initTabList();
   },
+  watch:{
+    // 监听当前激活分类 tabIndex 的变化， 重新拉取文章数据
+    active(newActive){
+      // 这里是每次切换 tab 都会触发 ajax 请求
+      // 问题在于我们对于那些已经请求过数据， 有了 posts 的分类是不需要这个重新请求的
+      if(this.tabList[newActive].posts.length == 0){
+        // 如果这个被选中的 tabIndex 对应的那个 tab 对象里面的 posts 长度为 0
+        // 证明没有数据，于是发送请求，不然就不管
+        this.getPosts(newActive);
+      }
+    }
+  },
   methods: {
     initTabList() {
       this.$axios({
