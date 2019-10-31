@@ -1,6 +1,21 @@
 <template>
   <div>
-    <div class="singleImg" v-if="item.cover.length>0&&item.cover.length<3">
+    <!-- 模板三 -->
+    <div class="videoPost" v-if="item.type == 2">
+      <div class="title">{{item.title}}</div>
+      <div class="cover">
+        <img :src="item.cover[0].url" alt />
+        <div class="btn">
+          <div class="iconfont iconshipin"></div>
+        </div>
+      </div>
+      <div class="info">
+        {{item.user.nickname}}
+        {{item.comment_length}}跟帖
+      </div>
+    </div>
+    <!-- 模板一 -->
+    <div class="singleImg" v-else-if="item.cover.length>0&&item.cover.length<3">
       <div class="left">
         <div class="title">{{item.title}}</div>
         <div class="author">
@@ -12,8 +27,8 @@
         <img :src="item.cover[0].url" alt />
       </div>
     </div>
-
-    <div class="multipImg" v-if="item.cover.length >= 3">
+    <!-- 模板二 -->
+    <div class="multipImg" v-else-if="item.cover.length >= 3">
       <div class="title">{{item.title}}</div>
       <div class="covers">
         <img :src="item.cover[0].url" alt />
@@ -64,27 +79,70 @@ export default {
   object-fit: cover;
 }
 
-
-.multipImg{
-    padding: 5.556vw;
-    border-bottom: 1px solid #eee;
-    .covers{
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
-        img{
-            width: 33%;
-            height: 20.556vw;
-            object-fit: cover;
-        }
+.multipImg {
+  padding: 5.556vw;
+  border-bottom: 1px solid #eee;
+  .covers {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    img {
+      width: 33%;
+      height: 20.556vw;
+      object-fit: cover;
     }
-    .title {
+  }
+  .title {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+  }
+  .info {
+    font-size: 3.889vw;
+    color: #999;
+    margin-top: 2.778vw;
+  }
+}
+
+.videoPost {
+  padding: 5.556vw;
+  border-bottom: 1px solid #eee;
+  .cover {
+    margin-top: 10px;
+    position: relative;
+    img {
+      object-fit: cover;
+      width: 100%;
     }
-    .info {
+    .btn {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .iconfont{
+          width: 55px;
+          height: 55px;
+          line-height: 55px;
+          border-radius: 50%;
+          background-color: #ccc;
+          color: #fff;
+          font-size: 46px;
+          text-align: center;
+      }
+    }
+  }
+  .title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+  .info {
     font-size: 3.889vw;
     color: #999;
     margin-top: 2.778vw;
