@@ -5,9 +5,10 @@
     <!-- 顶部tab组件 -->
     <van-tabs v-model="active">
       <van-tab v-for="(item,index) in tabList" :key="index" :title="item.name">
-        <div v-for="(postItem,index) in item.posts" :key="index">
+        <!-- <div v-for="(postItem,index) in item.posts" :key="index">
           {{postItem.title}}
-        </div>
+        </div> -->
+        <post :item="postItem" v-for="(postItem,index) in item.posts" :key="index"/>
       </van-tab>
     </van-tabs>
   </div>
@@ -15,9 +16,11 @@
 
 <script>
 import homeHeader from "../components/homeHeader";
+import post from "../components/post";
 export default {
   components: {
-    homeHeader
+    homeHeader,
+    post
   },
   data() {
     return {
