@@ -7,6 +7,7 @@ import Home from "../pages/Home";
 import EditProfile from "../pages/EditProfile";
 import MyFollows from "../pages/MyFollows";
 import MyComments from "../pages/MyComments";
+import MyCollections from "../pages/MyCollections";
 
 Vue.use(Router);
 
@@ -46,6 +47,11 @@ export default new Router({
       path: "/mycomments",
       name: "MyComments",
       component: MyComments
+    },
+    {
+      path: "/mycollections",
+      name: "MyCollections",
+      component: MyCollections
     },
   ]
 });
