@@ -2,8 +2,8 @@
   <div>
     <!-- 模板三 -->
     <div class="videoPost" v-if="item.type == 2">
-      <div class="title">{{item.title}}</div>
-      <div class="cover">
+      <div class="title" @click="toDetail()">{{item.title}}</div>
+      <div class="cover" @click="toDetail()">
         <img :src="item.cover[0].url" alt />
         <div class="btn">
           <div class="iconfont iconshipin"></div>
@@ -17,20 +17,20 @@
     <!-- 模板一 -->
     <div class="singleImg" v-else-if="item.cover.length>0&&item.cover.length<3">
       <div class="left">
-        <div class="title">{{item.title}}</div>
+        <div class="title" @click="toDetail()">{{item.title}}</div>
         <div class="author">
           {{item.user.nickname}}
           <span>{{item.comment_length}}跟帖</span>
         </div>
       </div>
-      <div class="right">
+      <div class="right" @click="toDetail()">
         <img :src="item.cover[0].url" alt />
       </div>
     </div>
     <!-- 模板二 -->
     <div class="multipImg" v-else-if="item.cover.length >= 3">
-      <div class="title">{{item.title}}</div>
-      <div class="covers">
+      <div class="title" @click="toDetail()">{{item.title}}</div>
+      <div class="covers" @click="toDetail()">
         <img :src="item.cover[0].url" alt />
         <img :src="item.cover[1].url" alt />
         <img :src="item.cover[2].url" alt />
@@ -46,7 +46,17 @@
 
 <script>
 export default {
-  props: ["item"]
+  props: ["item"],
+  methods:{
+      toDetail(){
+          this.$router.push({
+              name:'PostDetail',
+              params:{
+                  id:this.item.id
+              }
+          })
+      }
+  }
 };
 </script>
 

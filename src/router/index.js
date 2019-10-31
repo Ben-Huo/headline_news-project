@@ -55,7 +55,7 @@ export default new Router({
       component: MyCollections
     },
     {
-      path: "/postdetail",
+      path: "/postdetail/:id",
       name: "PostDetail",
       component: PostDetail
     },
