@@ -31,6 +31,9 @@ export default {
         url: "/category",
         method: "get"
       }).then(res => {
+        res.data.data.forEach(element => {
+          element.posts=[];
+        });
         console.log(res.data);
         this.tabList = res.data.data;
       });
