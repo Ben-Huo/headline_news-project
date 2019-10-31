@@ -3,7 +3,7 @@
     <homeHeader />
 
     <!-- 顶部tab组件 -->
-    <van-tabs v-model="active">
+    <van-tabs v-model="active" sticky swipeable>
       <van-tab v-for="(item,index) in tabList" :key="index" :title="item.name">
         <!-- <div v-for="(postItem,index) in item.posts" :key="index">
           {{postItem.title}}
