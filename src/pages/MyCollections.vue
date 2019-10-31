@@ -29,6 +29,10 @@ export default {
             }).then(res=>{
                 console.log(res.data);
                 this.collectionList = res.data.data;
+
+                this.collectionList.forEach(element => {
+                        element.comment_length = element.comments.length;
+                });
             })
         }
     }
