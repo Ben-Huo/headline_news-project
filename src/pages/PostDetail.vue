@@ -12,9 +12,11 @@
       </div>
       <div class="content" v-html="post.content" v-if="post.type != 2"></div>
       <div class="actionBtns">
-        <div class="like">
-          <span class="iconfont icondianzan"></span>
-          112
+        <div class="like" @click='like'>
+          <span class="iconfont icondianzan" :class="{
+              red: post.has_like
+          }"></span>
+          {{post.like_length}}
         </div>
         <div class="wechat">
           <span class="iconfont iconweixin"></span>
@@ -48,6 +50,23 @@ export default {
       console.log(res.data);
       this.post = res.data.data;
     });
+  },
+  methods:{
+      like(){
+          this.$axios({
+              url:'/post_like/'+this.post.id,
+              method:'get'
+          }).then(res=>{
+              console.log(res.data);
+              if(res.data.message == '点赞成功'){
+                  this.post.has_like = true;
+                  this.post.like_length += 1;
+              }else{
+                  this.post.has_like = false;
+                  this.post.like_length -= 1;
+              }
+          })
+      }
   }
 };
 </script>
@@ -96,5 +115,8 @@ export default {
     video{
         width: 100%;
     }
+}
+.red{
+    color: red;
 }
 </style>
