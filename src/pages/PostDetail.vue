@@ -1,10 +1,15 @@
 <template>
-  <div>111</div>
+  <div>
+      <postDetailHeader/>
+  </div>
 </template>
 
 <script>
+import postDetailHeader from '../components/postDetailHeader'
 export default {
-
+    components:{
+        postDetailHeader
+    }
 }
 </script>
 
