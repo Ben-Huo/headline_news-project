@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <postDetailFooter />
+    <postDetailFooter :post="post"/>
   </div>
 </template>
 
@@ -61,7 +61,7 @@ export default {
               if(res.data.message == '点赞成功'){
                   this.post.has_like = true;
                   this.post.like_length += 1;
-              }else{
+              }else if(res.data.message == '取消成功'){
                   this.post.has_like = false;
                   this.post.like_length -= 1;
               }

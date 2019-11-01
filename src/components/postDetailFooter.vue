@@ -7,7 +7,7 @@
               <span class="iconfont iconpinglun-"></span>
               <div class="commentNumber">1020</div>
           </div>
-          <span class="iconfont iconshoucang"></span>
+          <span class="iconfont iconshoucang" :class="{red:post.has_star}" @click="isStar"></span>
           <span class="iconfont iconfenxiang"></span>
       </div>
 
@@ -23,6 +23,7 @@
 
 <script>
 export default {
+    props:['post'],
     data(){
         return{
             isFocus:false
@@ -39,6 +40,19 @@ export default {
                 // 这个函数是告诉 vue 在下一次渲染完毕的时候
                 // 再执行这段代码  一般用在这些代码强烈依赖于渲染后的页面状态的那种代码
                 this.$refs.commentArea.focus();
+            })
+        },
+        isStar(){
+            this.$axios({
+                url:'/post_star/'+ this.post.id,
+                method:'get'
+            }).then(res=>{
+                console.log(res.data);
+                if(res.data.message == '收藏成功'){
+                    this.post.has_star = true;
+                }else if(res.data.message=='取消成功'){
+                    this.post.has_star = false;
+                }
             })
         }
     }
@@ -112,5 +126,8 @@ export default {
             line-height: 30px;
             border-radius: 15px;
         }
+    }
+    .red{
+        color: red;
     }
 </style>
