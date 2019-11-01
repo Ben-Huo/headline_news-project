@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
       <!-- 未激活状态 -->
-      <div class="disable">
+      <div class="disable" v-if="false">
           <input type="text" class="commentInput" placeholder="写跟帖">
           <div class="commentIcon">
               <span class="iconfont iconpinglun-"></span>
@@ -12,6 +12,12 @@
       </div>
 
       <!-- 激活状态 -->
+      <div class="enable">
+          <textarea class="commentArea" rows="3" placeholder="回复"></textarea>
+          <div class="btnSend">
+              发送
+          </div>
+      </div>
   </div>
 </template>
 
@@ -62,6 +68,31 @@ export default {
                 border-radius: 8px;
                 padding: 0 2px;
             }
+        }
+    }
+    .enable{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 2.778vw;
+        .commentArea{
+            width: 290px;
+            border: none;
+            outline: none;
+            background-color: #d7d7d7;
+            color: #666;
+            padding: 16px;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+        .btnSend{
+            background-color: red;
+            color: #fff;
+            font-size: 14px;
+            padding: 0 15px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 15px;
         }
     }
 </style>
