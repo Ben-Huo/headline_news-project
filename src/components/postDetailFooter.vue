@@ -1,8 +1,8 @@
 <template>
   <div class="footer">
       <!-- 未激活状态 -->
-      <div class="disable" v-if="false">
-          <input type="text" class="commentInput" placeholder="写跟帖">
+      <div class="disable" v-if="!isFocus">
+          <input type="text" class="commentInput" placeholder="写跟帖" @focus="showArea()">
           <div class="commentIcon">
               <span class="iconfont iconpinglun-"></span>
               <div class="commentNumber">1020</div>
@@ -12,8 +12,8 @@
       </div>
 
       <!-- 激活状态 -->
-      <div class="enable">
-          <textarea class="commentArea" rows="3" placeholder="回复"></textarea>
+      <div class="enable" v-if="isFocus">
+          <textarea class="commentArea" rows="3" placeholder="回复" @blur="isFocus = false" ref="commentArea"></textarea>
           <div class="btnSend">
               发送
           </div>
@@ -23,7 +23,25 @@
 
 <script>
 export default {
-
+    data(){
+        return{
+            isFocus:false
+        }
+    },
+    methods:{
+        showArea(){
+            this.isFocus = true;
+            // 这里即使你改变了 data 数据
+            // vue 是会等你的剩余代码执行完了才会更新页面
+            // 所以你现在是获取不到这个被 v-if 抹去的 dom
+            // 有一个函数可以设置一个异步回调,告诉 vue 等待我们下一次渲染完毕的时候再执行回调函数
+            this.$nextTick(()=>{
+                // 这个函数是告诉 vue 在下一次渲染完毕的时候
+                // 再执行这段代码  一般用在这些代码强烈依赖于渲染后的页面状态的那种代码
+                this.$refs.commentArea.focus();
+            })
+        }
+    }
 }
 </script>
 
