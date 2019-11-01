@@ -1,6 +1,6 @@
 <template>
   <div>
-    <postDetailHeader />
+    <postDetailHeader :post="post"/>
     <div class="item">
         <div class="video" v-if="post.type == 2">
             <video src="https://video.pearvideo.com/mp4/adshort/20191101/cont-1618354-14547591_adpkg-ad_sd.mp4" controls></video>
@@ -47,7 +47,6 @@ export default {
     }).then(res => {
       console.log(res.data);
       this.post = res.data.data;
-      console.log(this.post);
     });
   }
 };

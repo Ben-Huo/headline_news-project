@@ -4,18 +4,49 @@
           <span class="iconfont iconjiantou2" @click="$router.back()"></span>
           <span class="iconfont iconnew"></span>
       </div>
-      <div class="btnFollowActive">
+      <!-- 实现关注功能 添加一个 click 点击事件 -->
+      <!-- 判断 post.has_follow 来实现 关注和已关注 标签的显示切换 -->
+      <div class="btnFollowActive" v-if="post.has_follow == false" @click="isFollow">
           关注
       </div>
-      <!-- <div class="btnFollow">
+      <div class="btnFollow" v-else-if="post.has_follow == true" @click="unFollow">
           已关注
-      </div> -->
+      </div>
   </div>
 </template>
 
 <script>
 export default {
+    props:['post'],
+    methods:{
+        isFollow(){
+            // 发送ajax请求
+            this.$axios({
+                url:'/user_follows/'+ this.post.user.id,
+                method:'get'
+            }).then(res=>{
+                console.log(res);
+                // 如果 res.data.message == '关注成功' 请求完成
+                if(res.data.message == '关注成功'){
+                    this.post.has_follow = true;
+                }
 
+            })
+        },
+        unFollow(){
+            this.$axios({
+                url:'/user_unfollow/'+ this.post.user.id,
+                method:'get'
+            }).then(res=>{
+                console.log(res);
+                // 如果 res.data.message == '取消关注成功' 请求完成
+                if(res.data.message == '取消关注成功'){
+                    this.post.has_follow = false;
+                }
+
+            })
+        },
+    }
 }
 </script>
 
