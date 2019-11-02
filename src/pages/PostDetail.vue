@@ -154,7 +154,7 @@ export default {
     padding-bottom: 22.222vw;
     border-top: 5px solid #eee;
     .title {
-        padding-top: 11.111vw;
+        padding-top: 8.333vw;
         font-weight: normal;
         text-align: center;
     }
