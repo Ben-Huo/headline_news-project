@@ -33,9 +33,7 @@
         <h2 class="title">精彩跟帖</h2>
         <div class="emptyComment" v-if="this.comments.length == 0">暂无跟帖，抢占沙发</div>
         <div class="comment" v-else>
-            <div v-for="(item,index) in comments" :key="index">
-                
-            </div>
+                <comments :item="item" v-for="(item,index) in comments" :key="index"/>
         </div>
       </div>
     </div>
@@ -47,10 +45,12 @@
 <script>
 import postDetailHeader from "../components/postDetailHeader";
 import postDetailFooter from "../components/postDetailFooter";
+import comments from "../components/comments";
 export default {
   components: {
     postDetailHeader,
-    postDetailFooter
+    postDetailFooter,
+    comments
   },
   data() {
     return {
